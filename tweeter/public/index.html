@@ -16,6 +16,9 @@
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
 
+    <!-- Char Count JS -->
+    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
+
     <!-- Roboto Condensed Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,700,700i" rel="stylesheet">
 
@@ -24,6 +27,7 @@
 
     <!-- New-Tweet CSS -->
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+
   </head>
 
   <body>
@@ -38,11 +42,26 @@
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
         <form method='POST' action='/tweets'>
-          <textarea name="text" placeholder="What are you humming about?"></textarea>
+          <textarea class='textarea' name="text" placeholder="What are you humming about?"></textarea>
           <input class='tweetSubmit' type="submit" value="Tweet">
           <span class="counter">140</span>
         </form>
       </section>
+      <ul class='tweets_list'>
+        <li class ='tweet_box'>
+          <header>
+            <img src="https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png" alt="tweet icon">
+            <span class="name">Bill Fields</span>
+            <p class='handle'>@MrFields</p>
+          </header>
+          <article>
+            <p class='message'>Little Tweet lol</p>
+            <footer>
+              <p class='tweet-age'>10 days ago</p>
+            </footer>
+          </article>
+        </li>
+      </ul>
     </main>
   </body>
 </html>
