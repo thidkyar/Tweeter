@@ -1,18 +1,17 @@
 
 $(document).ready(function() {
-  $('.textarea').on("keyup", function (event) {
+  $('.textarea').on("input",function (event) {
     const maxLength = 140;
-    const length = $(this).val().length;
-    length = maxLength - length;
-
+    const valLength = $(this).val().length;
+    const $counter = $(this).siblings('.counter')
+    let length = maxLength - valLength;
     if (length < 0) {
       // $('.counter').css('color', 'red');
-      $(this).addClass('red-text');
+      $counter.addClass('red-text');
     } else if (length >= 0) {
       // $('.counter').css('color', 'black');
-      $(this).removeClass('red-text');
+      $counter.removeClass('red-text');
     }
-    
-    $(this).siblings('.counter').text(length)
+    $counter.text(length)
   });
 });
