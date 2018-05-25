@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,700,700i');
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 
+.container {
+  box-shadow: inset 0px 0px 15px 0px
+}
+
+body {
+  background-color: #39524e;
+}
 
 .tweets_list {
   list-style: none;
@@ -14,6 +21,11 @@
   margin-left: 2em;
   margin-right: 2em;
   padding-bottom: 30px;
+}
+
+.new-tweet:hover {
+  box-shadow: 0px 0px 20px 0px #999;
+  transition: 0.2s;
 }
 
 .new-tweet h2 {
@@ -75,7 +87,7 @@
 }
 
 .tweet_box .tweet-age {
-  border-top: 1px solid #EEEEEE;
+  float: left;
   margin: 0px;
   padding-bottom: 2%;
   padding-top: 2%;
@@ -99,6 +111,52 @@
 
 .tweet_box header {
   background-color: #EEEEEE;
+}
+
+.footer {
+  height: 30px;
+  border-top: 1px solid #EEEEEE;
+}
+
+/* footer icons */
+.icons {
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  font-size: 80%;
+}
+.fa-flag {
+  padding-right: 3px;
+  opacity: 0.1;
+}
+
+.fa-flag:hover{
+  color: red;
+  opacity: 1;
+  font-size: 110%;
+  transition: 1.5s;
+}
+
+.fa-heart {
+  padding-left: 3px;
+  opacity: 0.1;
+}
+
+.fa-heart:hover{
+  color: hotpink;
+  opacity: 1;
+  font-size: 110%;
+  transition: 1s;
+}
+
+.fa-retweet {
+  opacity: 0.1;
+}
+.fa-retweet:hover {
+  color: blue;
+  opacity: 1;
+  font-size: 110%;
+  transition: 1.5s;
 }
 
 .red-text {
