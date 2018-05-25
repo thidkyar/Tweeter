@@ -4,10 +4,37 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Test / driver code (temporary). Eventually will get this from the server.
+//Function to calculate time since post.
+function tweetAgeTime(milliseconds) {
+  var seconds = Math.floor((Date.now() - milliseconds) / 1000);
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
 
 function createTweetElement(tweet) {
-  const $tweet = $("<li>").addClass("tweet_box");
+  const $tweet = $("<li>")
+    .addClass("tweet_box")
+    .data("id", tweet._id);
 
   const $header = $("<header>").appendTo($tweet);
 
@@ -32,51 +59,51 @@ function createTweetElement(tweet) {
     .text(tweet.content.text)
     .appendTo($article);
 
-  const $footer = $("<footer>").appendTo($article);
+  const $footer = $("<footer>")
+    .addClass("footer")
+    .appendTo($article);
+
   $("<p>")
     .addClass("tweet-age")
-    .text(tweet.created_at)
+    .text(tweetAgeTime(tweet.created_at))
     .appendTo($footer);
   const $fontDiv = $("<div>")
     .addClass("icons")
-    .appendTo($footer)
-
-  // $("<i>")
-  //   .addClass("fas fa-flag")
-  //   .appendTo($fontDiv);
-  // $("<i>")
-  //   .addClass("fas fa-retweet")
-  //   .appendTo($fontDiv)
-  // $("<i>")
-  //   .addClass("fas fa-heart")
-  //   .appendTo($fontDiv)
-
+    .appendTo($footer);
+  $("<i>")
+    .addClass("fas fa-flag")
+    .appendTo($fontDiv);
+  $("<i>")
+    .addClass("fas fa-retweet")
+    .appendTo($fontDiv);
+  $("<i>")
+    .addClass("fas fa-heart")
+    .appendTo($fontDiv);
 
   $(".tweets_list").append($tweet);
 
   return $tweet;
 }
 
+//Render data and add to end of tweets_list
 function renderTweets(tweets) {
   tweets.forEach(function(tweet) {
-    createTweetElement(tweet).appendTo(".tweets_list");
-    // $("tweets_list").append(createTweetElement(tweet));
+    createTweetElement(tweet).prependTo(".tweets_list");
   });
 }
 
 $(document).ready(function() {
-  // renderTweets(data);
-  $(".compose").on('click', function(event) {
-    $(".new-tweet").toggle("slow")
-  })
+  $(".new-tweet").hide();
+  $(".compose").on("click", function(event) {
+    $(".new-tweet").toggle("slow");
+    $(".textarea").focus();
+  });
 
-  loadTweets();
   function loadTweets() {
     $.ajax({
       url: "/tweets",
       method: "GET",
       success: function(data) {
-        // console.log("Success: ");
         renderTweets(data);
       },
       error: function(xhr) {
@@ -84,6 +111,15 @@ $(document).ready(function() {
       }
     });
   }
+
+  $("body").on("click", ".fa-heart", function(event) {
+    $.ajax({
+      url: "/tweets/likes",
+      method: "POST",
+      success: function() {}
+    });
+  });
+
   $("form").submit(function(event) {
     event.preventDefault();
     let str = $("form").serialize();
@@ -96,18 +132,13 @@ $(document).ready(function() {
         url: "/tweets",
         method: "POST",
         data: str,
-        success: function() {
-          $.ajax({
-            url: "/tweets",
-            method: "GET",
-            success: function(data) {
-              createTweetElement(data[0]).prependTo(".tweets_list");
-              $(".textarea").val('');
-              $(".counter").val('');
-            }
-          });
+        success: function(data) {
+          loadTweets();
+          // $(".counter").val("");
+          $("form")[0].reset();
         }
       });
     }
   });
+  loadTweets();
 });
