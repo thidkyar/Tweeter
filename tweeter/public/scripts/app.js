@@ -88,12 +88,14 @@ function createTweetElement(tweet) {
 
 //Render data and add to end of tweets_list
 function renderTweets(tweets) {
+  $(".tweets_list").empty();
   tweets.forEach(function(tweet) {
     createTweetElement(tweet).prependTo(".tweets_list");
   });
 }
 
 $(document).ready(function() {
+  loadTweets();
   $(".new-tweet").hide();
   $(".compose").on("click", function(event) {
     $(".new-tweet").toggle("slow");
