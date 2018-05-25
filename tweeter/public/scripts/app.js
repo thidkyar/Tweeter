@@ -31,6 +31,7 @@ function tweetAgeTime(milliseconds) {
   return Math.floor(seconds) + " seconds ago";
 }
 
+//function to handle the output of tweets
 function createTweetElement(tweet) {
   const $tweet = $("<li>")
     .addClass("tweet_box")
@@ -120,6 +121,7 @@ $(document).ready(function() {
     });
   });
 
+  //handle form submit -- handle post request to post tweet
   $("form").submit(function(event) {
     event.preventDefault();
     let str = $("form").serialize();
