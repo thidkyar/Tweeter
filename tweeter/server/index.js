@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // The in-memory database of tweets. It's a basic object with an array in it.
-const MongoClient = require("mongodb");
+const {MongoClient} = require("mongodb");
 const MONGODB_URI = "mongodb://localhost:27017/tweeter";
 
 MongoClient.connect(MONGODB_URI, (err, db) => {
