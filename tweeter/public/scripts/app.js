@@ -138,8 +138,8 @@ $(document).ready(function() {
         data: str,
         success: function(data) {
           loadTweets();
-          // $(".counter").val("");
           $("form")[0].reset();
+          $(".counter").text("140");
         }
       });
     }
